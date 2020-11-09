@@ -1,0 +1,270 @@
+import os
+
+os.system("tput setaf 2")
+print()
+
+print("\t\t\t -------------------")
+print("\t\t\t    Welcome TO Team 14.8  Assistant   ")
+print("\t\t\t -------------------")
+
+os.system("tput setaf 3")
+
+print("Which Service U want to Automate :")
+print("")
+print("")
+os.system("tput setaf 7")
+
+print("""01.AWS Service
+02.Docker Service
+03.Linux Service
+04.Hadoop Service
+05.To Exit""")
+
+choice = input("Enter The Choice That U Want To Operate :- ")
+
+if choice == '1':
+	os.system("tput setaf 1")
+	print("\t\t  ----------------------------------")
+	print("\t\t  | Welcome to AWS Assistant !! |")
+	print("\t\t  ----------------------------------")
+	os.system("tput setaf 7")
+
+	os.system("tput setaf 2")
+	print("""Press 1 : To Create Key Pair
+	Press 2 : To Create Security Group.
+	Press 3 : To Launch An Instance
+	Press 4 : To Start An Instance
+	Press 5 : To Describe An Instance
+	Press 6 : To Create An EBS Volume
+	Press 7 : To Attach An EBS Volume
+	Press 8 : To Stop Instances
+	Press 9 : To Return To Previous Menu""")
+	
+	a=input("Enter Your Choice")
+
+	if a=='1':
+		key_name = input("Enter the name -")
+		os.system("aws ec2 create-key-pair --key-name {}".format(key_name))
+	elif a=='2':
+		sg_name = input("Enter The Security Group")
+		sg_desc = input("Enter The Description")
+		os.system("aws ec2 create-security-group --group-name {0} --description {1}".format(sg_name, sg_desc))
+	elif a=='3':
+		instance_type = input("Enter the Instance Type - ")
+		key_name = input("Enter The Key-Pair Name - ")
+		count = input("Enter The Count - ")
+		os.system("aws ec2 run-instances --image-id ami-0e306788ff247ccb --instance-type {0} --key-name {1} --subnet-id subnet-0a420fc4eb459022a 		--count {2}".format(instance_type, key_name,count))
+	elif a=='4':
+		instance_id = input("Enter Instance Id To Start - ")
+		os.system("aws ec2 start-instances --instance-ids {}".format(instance_id))
+	elif a=='5':
+		describe_instanceid = input("Enter Instance Id To be described - ")
+		os.system("aws ec2 describe-instances --instance-ids {}".format(describe_instanceid))	
+	elif a=='6':
+		size = input("Enter Size Of EBS Volume - ")
+		region = input("Enter Availability Zone - ")
+		os.system("aws ec2 create-volume --availability-zone {region} --no-encrypted --size {size}")
+	elif a=='7':
+		instance_id= input("Enter the Instance-Id : ")
+		vol_id= input("Enter The Vloume-Id : ")
+		os.system("aws ec2 attach-volume --instance-id {instance_id} --volume-id {vol_id} --device /dev/sdf")
+	elif a=='8':
+		instance_id = input("Enter Instance Id To Stop - ")
+		os.system("aws ec2 stop-instances --instance-ids {}".format(instance_id))
+	elif a == '9':
+		break
+elif choice == '2':
+	os.system("tput setaf 1")
+	print("\t\t  ----------------------------------")
+	print("\t\t  | Welcome to Docker Assistant !! |")
+	print("\t\t  ----------------------------------")
+	os.system("tput setaf 7")
+
+	os.system("tput setaf 2")
+	print("""Press 1 : Show Docker version
+	Press 2 : To Configure Docker
+	Press 3 : To Search Docker Image
+	Press 4 : To Pull Docker Image
+	Press 5 : To List Container 
+	Press 6 : To Remove all the Container
+	Press 7 : To Configure Webserver on Docker
+	Press 8 : To Run Python Code on Docker
+	Press 9 : To Launch GUI program in Docker
+	Press 0 : To Return to Previous Menu""")
+	
+	b = input("Enter Your Choice")
+	if b == '1':
+		os.system("docker version")
+	elif b == '2':
+		os.system("touch /etc/yum.repos.d/docker-ce.repo".format(ssh))
+		output = sp.getstatusoutput("echo '[docker]\nbaseurl = https://download.docker.com/linux/centos/7/x86_64/stable/Packages/\ngpgcheck=0' > /etc/yum.repos.d/docker-ce.repo")
+		if(output[0] == 0):
+			output = sp.getstatusoutput("yum install docker-ce --nobest")
+			os.system("docker info")
+			os.system('systemctl start docker')
+    elif b == '3': 
+		image_name =input("Enter the OS Name : ")
+		os.system("docker pull {0}".format(image_name))
+	elif b == '4':
+		image_name = input("Enter the OS Name : ")
+		os.system("docker pull {0}".format(image_name))
+	elif b == '5':
+		os.system("docker ps -a")
+	elif b == '6':
+		os.system("docker rm -f $(docker ps -aq)")
+	elif b == '7':
+		os.system('docker run -dit --name webos -p 8080:80 centos')
+		os.system('docker exec webos yum install httpd -y')
+		os.system('docker cp index.html webos:/var/www/html/')
+		os.system('docker exec webos /usr/sbin/httpd')
+	elif b == '8':
+		os.system('docker run -dit --name pyos centos')
+		os.system('docker exec pyos yum install python3 -y')
+		os.system('docker cp hello.py pyos:/')
+		print()
+		os.system('docker exec pyos python3 /hello.py')
+	elif b == '9':
+		os.system('docker run -it --name gui --env="DISPLAY" --net=host firefox:v1')
+	elif b == '0':
+		break
+elif choice == '3':
+	print("where do you want to run your command (local/remote?) : ", end = '')
+	choose = input()
+	if choose == "local":
+		print("""\t\t\t
+                    press 1 : show date
+                    press 2 : show cal
+                    press 3 : to check your IP 
+                    press 4 : to check your hard disk 
+                    press 5 : to create folder
+                    print 6 : to create file
+                    press 7 : to shutdown your system
+                    press 8 : to restart your system
+                    press 9 : to check your spaces in your file system
+                    press 10 : to check IP active or not
+                    press 11 : to yum configuration
+                    press 12 : to install software
+                    """)
+                    n = input("enter your choice : ")
+                    if int(n) == 1:
+                            os.system("date")
+                    elif int(n) == 2:
+                            os.system("cal")
+                    elif int(n) == 3:
+                            os.system("ifconfig enp0s3")             
+                    elif int(n) == 4:
+                            os.system("fdisk -l")
+                    elif int(n) == 5:
+                            os.system("mkdir")
+                            print("ex : mkdir python")
+                    elif int(n) == 6:
+                            os.system("vi")
+                            print("ex : vi hello.txt")
+                    elif int(n) == 7:
+                            os.system("init 0")
+                    elif int(n) == 8:
+                            os.system("init 6")
+                    elif int(n) == 9:
+                            os.system("df -h")
+                    elif int(n) == 10:
+                            os.system("ping")
+                            print("ex : ping 1.2.3.4")
+                    elif int(n) == 11:
+                            file = open("/ect/yum.repos.d/dvd.repo","w")
+                            dvd = [dvd1]
+                            baseurl=file:///run/media/root/RHEL-8-0-0-BaseOS-x86_64/AppStreamn
+                            gpgcheck=0
+                            [dvd2]
+                            baseurl=file:///run/media/root//RHEL-8-0-0-BaseOS-x86_64/BaseOS
+                            gpgcheck=0
+                            file.write(dvd)
+                            file.close 
+    
+                    elif int(n) == 12:
+                            os.system("yum install")
+                            print("ex : yum install jdk-8u171-linux-x64.rpm")                
+                    else:
+                            print("invalid input")
+                            input("please choose correct option : ")
+elif choice == '4':
+	print("""
+        01. Checks the hadoop version
+        02. Format a hadoop namenode
+        03. Start the namenode service
+        04. Start the datanode service
+        05. Show the hadoop report
+        06. List all files present in hadoop filesystem
+        07. Upload the file to hadoop filesystem
+        08. Remove the file from hadoop filesystem
+        09. List the contents of a file in hdfs
+        10. Upload the file with a defined block size
+        11. Create an empty file in hadoop filesystem
+        00. Go to previous menu
+        """)
+        c = input("Enter your choice: ")
+        if c == "1":
+            os.system("hadoop version")
+            print("")
+            print("")
+        elif c == "2":
+            os.system("hadoop namenode -format")
+            print("")
+            print("")
+        elif c == "3":
+            os.system("hadoop-daemon.sh start namenode")
+            print("")
+            print("")
+        elif c == "4":
+            os.system("hadoop-daemon.sh start datanode")
+            print("")
+            print("")
+        elif c == "5":
+            os.system("hadoop dfsadmin -report")
+            print("")
+            print("")
+        elif c == "6":
+            os.system("hadoop fs -ls /")
+            print("")
+            print("")
+        elif c == "7":
+            name = input("Enter path of file: ")
+            str = "hadoop fs -put " + name
+            name = input("Enter the destignation in hadoop: ")
+            str = str + name
+            os.system(str)
+            print("")
+            print("")
+        elif c == "8":
+            name = input("Enter file to delete from hdfs: ")
+            str = "hadoop fs -rm " + name
+            os.system(str)
+            print("")
+            print("")
+        elif c == "9":
+            name = input("Enter file whose content to view: ")
+            str = "hadoop fs -cat " + name
+            os.system(str)
+            print("")
+            print("")
+        elif c == "10":
+            name = input("Enter the block size (in bytes): ")
+            str = "hadoop fs -Ddfs.block.size=" + name
+            name = input("Enter path of file: ")
+            str = str + " -put " + name + " "
+            name = input("Enter the destignation in hadoop: ")
+            str = str + name
+            os.system(str)
+            print("")
+            print("")
+        elif c == "11":
+            name = input("Enter name of file to create in hdfs: ")
+            str = "hadoop fs -touchz / " + name
+            os.system(str)
+            print("")
+            print("")
+        elif c == "0":
+            break
+else:
+	os.system("tput setaf 1")
+        print("ERROR: Command not found")
+        
